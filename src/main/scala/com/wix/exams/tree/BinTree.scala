@@ -32,6 +32,6 @@ object BinTree {
 
   @throws[SerializationException]
   def deserialize(src: String): BinTree = {
-    BinTreeDeserializer(src)
+    BinTreeDeserializer(src).get
   }
 }
