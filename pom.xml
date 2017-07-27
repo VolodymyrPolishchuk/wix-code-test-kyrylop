@@ -1,0 +1,69 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>com.wix.exams</groupId>
+  <artifactId>scala-tree-exam</artifactId>
+  <version>1.0.0-SNAPSHOT</version>
+  <description>scala binary tree serialization exam</description>
+
+  <properties>
+    <scala.version>2.12.2</scala.version>
+    <scala.dependencies.version>2.12</scala.dependencies.version>
+    <specs2.version>3.8.9</specs2.version>
+  </properties>
+  
+  <dependencies>
+    <dependency>
+      <groupId>org.scala-lang</groupId>
+      <artifactId>scala-library</artifactId>
+      <version>${scala.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.specs2</groupId>
+      <artifactId>specs2-core_${scala.dependencies.version}</artifactId>
+      <version>${specs2.version}</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.specs2</groupId>
+      <artifactId>specs2-junit_${scala.dependencies.version}</artifactId>
+      <version>${specs2.version}</version>
+      <scope>test</scope>
+    </dependency>
+  </dependencies>
+
+  <repositories>
+    <repository>
+      <id>maven</id>
+      <name>maven</name>
+      <url>http://repo1.maven.org/maven2/</url>
+    </repository>
+  </repositories>
+
+  <build>
+    
+    <testSourceDirectory>src/test/scala</testSourceDirectory>
+    <sourceDirectory>src/main/scala</sourceDirectory>
+    
+    <plugins>
+      <plugin>
+        <groupId>net.alchim31.maven</groupId>
+        <artifactId>scala-maven-plugin</artifactId>
+        <version>3.2.2</version>
+        <executions>
+          <execution>
+            <goals>
+              <goal>compile</goal>
+              <goal>testCompile</goal>
+            </goals>
+          </execution>
+        </executions>
+        <configuration>
+          <jvmArgs>
+            <jvmArg>-Xms64m</jvmArg>
+            <jvmArg>-Xmx1024m</jvmArg>
+          </jvmArgs>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
+</project>
