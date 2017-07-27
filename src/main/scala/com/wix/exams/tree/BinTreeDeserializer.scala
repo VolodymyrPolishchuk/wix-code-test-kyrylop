@@ -2,13 +2,40 @@ package com.wix.exams.tree
 
 import java.io.{Reader, StringReader}
 
+import com.wix.exams.tree.BinTree.SerializationException
+
 object BinTreeDeserializer {
 
-  def apply(src: String): BinTree = {
+  def apply(src: String): Option[BinTree] = {
     val reader = new StringReader(src)
-
-
+    var stack: List[Option[BinTree]] = Nil
+    while (true) {
+      val token = nextToken(reader)
+      token match {
+        case None => stack match {
+          case Nil => throw new SerializationException
+          case node :: Nil => Some(node)
+          case _ => throw new SerializationException
+        }
+        case Some(Null) => stack match {
+          case Nil => stack = None :: stack
+          case None :: _ => throw new SerializationException
+          case Some(node) :: _ => setChild(node, None)
+        }
+        case Some(Value(value)) => stack match {
+          case Nil => stack = Some(BinTree(value)) :: stack
+          case None :: _ => throw new SerializationException
+          case Some(node) :: _ => {
+            val child = Some(BinTree(value))
+            setChild(node, child)
+            stack = child :: stack
+          }
+        }
+      }
+    }
   }
+
+  private def setChild(node: BinTree, child: Option[BinTree]) = if (node.left == null) node.left = child else node.right = child
 
   private def nextToken(reader: Reader): Option[Token] = {
     reader.read().toChar match {
