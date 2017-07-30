@@ -8,7 +8,7 @@ class BinTree(val value: String, var left: Option[BinTree], var right: Option[Bi
 
   @throws[SerializationException]
   def serialize(): String = {
-    new BinTreeSerializer().apply(Some(this))
+    BinTreeSerializer(Some(this))
   }
 
   override def toString: String = try serialize() catch {
